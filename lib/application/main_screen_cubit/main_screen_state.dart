@@ -9,10 +9,10 @@ abstract class MainScreenState with _$MainScreenState {
     required Contacts contacts,
   }) = _MainSreenState;
 
-  factory MainScreenState.initialMainScreen() => const MainScreenState(
+  factory MainScreenState.initialMainScreen() => MainScreenState(
         title: 'People rating',
         drawerOrArrowBack: true,
         currentPageIndex: 1,
-        contacts: Contacts(contacts: []),
+        contacts: Contacts.empty(),
       );
 }

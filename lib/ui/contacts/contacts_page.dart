@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubit.dart';
-import 'package:people_rating_app/ui/contacts/contact.dart';
+import 'package:people_rating_app/ui/contacts/contact_widget.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);

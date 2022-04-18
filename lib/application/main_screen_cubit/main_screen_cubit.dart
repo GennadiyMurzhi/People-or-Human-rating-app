@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:people_rating_app/domain/contacts/contacts.dart';
-import 'package:people_rating_app/infrastructure/contacts_repository.dart';
+import 'package:people_rating_app/infrastructure/contacts/contacts_repository.dart';
 
 part 'main_screen_cubit.freezed.dart';
 
@@ -30,9 +30,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       contacts.fold(
         (failure) => emit(
           state.copyWith(
-            contacts: const Contacts(
-              contacts: [],
-            ),
+            contacts: Contacts.empty(),
           ),
         ),
         (contacts) => emit(
@@ -41,7 +39,6 @@ class MainScreenCubit extends Cubit<MainScreenState> {
           ),
         ),
       );
-
     }
   }
 
@@ -52,5 +49,4 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       curve: Curves.easeInOut,
     );
   }
-
 }

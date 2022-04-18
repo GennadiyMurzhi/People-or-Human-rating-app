@@ -18,3 +18,4 @@ class Contact with _$Contact{
     required List<String> phones,
   }) = _Contact;
 }
+
