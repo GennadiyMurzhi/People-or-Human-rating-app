@@ -15,76 +15,59 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FailuresTearOff {
-  const _$FailuresTearOff();
+class _$ServerFailureTearOff {
+  const _$ServerFailureTearOff();
 
-  ServerFailure serverFailure() {
-    return const ServerFailure();
-  }
-
-  CacheFailure cacheFailure() {
-    return const CacheFailure();
+  ServerError serverError({required int statusCode}) {
+    return ServerError(
+      statusCode: statusCode,
+    );
   }
 }
 
 /// @nodoc
-const $Failures = _$FailuresTearOff();
+const $ServerFailure = _$ServerFailureTearOff();
 
 /// @nodoc
-mixin _$Failures {
+mixin _$ServerFailure {
+  int get statusCode => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverFailure,
-    required TResult Function() cacheFailure,
+    required TResult Function(int statusCode) serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function(int statusCode)? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function(int statusCode)? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ServerFailure value) serverFailure,
-    required TResult Function(CacheFailure value) cacheFailure,
+    required TResult Function(ServerError value) serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(ServerError value)? serverError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(ServerError value)? serverError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-}
 
-/// @nodoc
-abstract class $FailuresCopyWith<$Res> {
-  factory $FailuresCopyWith(Failures value, $Res Function(Failures) then) =
-      _$FailuresCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$FailuresCopyWithImpl<$Res> implements $FailuresCopyWith<$Res> {
-  _$FailuresCopyWithImpl(this._value, this._then);
-
-  final Failures _value;
-  // ignore: unused_field
-  final $Res Function(Failures) _then;
+  @JsonKey(ignore: true)
+  $ServerFailureCopyWith<ServerFailure> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -92,65 +75,119 @@ abstract class $ServerFailureCopyWith<$Res> {
   factory $ServerFailureCopyWith(
           ServerFailure value, $Res Function(ServerFailure) then) =
       _$ServerFailureCopyWithImpl<$Res>;
+  $Res call({int statusCode});
 }
 
 /// @nodoc
-class _$ServerFailureCopyWithImpl<$Res> extends _$FailuresCopyWithImpl<$Res>
+class _$ServerFailureCopyWithImpl<$Res>
     implements $ServerFailureCopyWith<$Res> {
-  _$ServerFailureCopyWithImpl(
-      ServerFailure _value, $Res Function(ServerFailure) _then)
-      : super(_value, (v) => _then(v as ServerFailure));
+  _$ServerFailureCopyWithImpl(this._value, this._then);
+
+  final ServerFailure _value;
+  // ignore: unused_field
+  final $Res Function(ServerFailure) _then;
 
   @override
-  ServerFailure get _value => super._value as ServerFailure;
+  $Res call({
+    Object? statusCode = freezed,
+  }) {
+    return _then(_value.copyWith(
+      statusCode: statusCode == freezed
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class $ServerErrorCopyWith<$Res>
+    implements $ServerFailureCopyWith<$Res> {
+  factory $ServerErrorCopyWith(
+          ServerError value, $Res Function(ServerError) then) =
+      _$ServerErrorCopyWithImpl<$Res>;
+  @override
+  $Res call({int statusCode});
+}
+
+/// @nodoc
+class _$ServerErrorCopyWithImpl<$Res> extends _$ServerFailureCopyWithImpl<$Res>
+    implements $ServerErrorCopyWith<$Res> {
+  _$ServerErrorCopyWithImpl(
+      ServerError _value, $Res Function(ServerError) _then)
+      : super(_value, (v) => _then(v as ServerError));
+
+  @override
+  ServerError get _value => super._value as ServerError;
+
+  @override
+  $Res call({
+    Object? statusCode = freezed,
+  }) {
+    return _then(ServerError(
+      statusCode: statusCode == freezed
+          ? _value.statusCode
+          : statusCode // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$ServerFailure implements ServerFailure {
-  const _$ServerFailure();
+class _$ServerError implements ServerError {
+  const _$ServerError({required this.statusCode});
+
+  @override
+  final int statusCode;
 
   @override
   String toString() {
-    return 'Failures.serverFailure()';
+    return 'ServerFailure.serverError(statusCode: $statusCode)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ServerFailure);
+        (other.runtimeType == runtimeType &&
+            other is ServerError &&
+            const DeepCollectionEquality()
+                .equals(other.statusCode, statusCode));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(statusCode));
+
+  @JsonKey(ignore: true)
+  @override
+  $ServerErrorCopyWith<ServerError> get copyWith =>
+      _$ServerErrorCopyWithImpl<ServerError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverFailure,
-    required TResult Function() cacheFailure,
+    required TResult Function(int statusCode) serverError,
   }) {
-    return serverFailure();
+    return serverError(statusCode);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function(int statusCode)? serverError,
   }) {
-    return serverFailure?.call();
+    return serverError?.call(statusCode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function(int statusCode)? serverError,
     required TResult orElse(),
   }) {
-    if (serverFailure != null) {
-      return serverFailure();
+    if (serverError != null) {
+      return serverError(statusCode);
     }
     return orElse();
   }
@@ -158,37 +195,89 @@ class _$ServerFailure implements ServerFailure {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ServerFailure value) serverFailure,
-    required TResult Function(CacheFailure value) cacheFailure,
+    required TResult Function(ServerError value) serverError,
   }) {
-    return serverFailure(this);
+    return serverError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(ServerError value)? serverError,
   }) {
-    return serverFailure?.call(this);
+    return serverError?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(ServerError value)? serverError,
     required TResult orElse(),
   }) {
-    if (serverFailure != null) {
-      return serverFailure(this);
+    if (serverError != null) {
+      return serverError(this);
     }
     return orElse();
   }
 }
 
-abstract class ServerFailure implements Failures {
-  const factory ServerFailure() = _$ServerFailure;
+abstract class ServerError implements ServerFailure {
+  const factory ServerError({required int statusCode}) = _$ServerError;
+
+  @override
+  int get statusCode;
+  @override
+  @JsonKey(ignore: true)
+  $ServerErrorCopyWith<ServerError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$CacheFailureTearOff {
+  const _$CacheFailureTearOff();
+
+  CacheError cacheError() {
+    return const CacheError();
+  }
+}
+
+/// @nodoc
+const $CacheFailure = _$CacheFailureTearOff();
+
+/// @nodoc
+mixin _$CacheFailure {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cacheError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? cacheError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cacheError,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CacheError value) cacheError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CacheError value)? cacheError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CacheError value)? cacheError,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -199,30 +288,45 @@ abstract class $CacheFailureCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CacheFailureCopyWithImpl<$Res> extends _$FailuresCopyWithImpl<$Res>
-    implements $CacheFailureCopyWith<$Res> {
-  _$CacheFailureCopyWithImpl(
-      CacheFailure _value, $Res Function(CacheFailure) _then)
-      : super(_value, (v) => _then(v as CacheFailure));
+class _$CacheFailureCopyWithImpl<$Res> implements $CacheFailureCopyWith<$Res> {
+  _$CacheFailureCopyWithImpl(this._value, this._then);
+
+  final CacheFailure _value;
+  // ignore: unused_field
+  final $Res Function(CacheFailure) _then;
+}
+
+/// @nodoc
+abstract class $CacheErrorCopyWith<$Res> {
+  factory $CacheErrorCopyWith(
+          CacheError value, $Res Function(CacheError) then) =
+      _$CacheErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CacheErrorCopyWithImpl<$Res> extends _$CacheFailureCopyWithImpl<$Res>
+    implements $CacheErrorCopyWith<$Res> {
+  _$CacheErrorCopyWithImpl(CacheError _value, $Res Function(CacheError) _then)
+      : super(_value, (v) => _then(v as CacheError));
 
   @override
-  CacheFailure get _value => super._value as CacheFailure;
+  CacheError get _value => super._value as CacheError;
 }
 
 /// @nodoc
 
-class _$CacheFailure implements CacheFailure {
-  const _$CacheFailure();
+class _$CacheError implements CacheError {
+  const _$CacheError();
 
   @override
   String toString() {
-    return 'Failures.cacheFailure()';
+    return 'CacheFailure.cacheError()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is CacheFailure);
+        (other.runtimeType == runtimeType && other is CacheError);
   }
 
   @override
@@ -231,30 +335,27 @@ class _$CacheFailure implements CacheFailure {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() serverFailure,
-    required TResult Function() cacheFailure,
+    required TResult Function() cacheError,
   }) {
-    return cacheFailure();
+    return cacheError();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function()? cacheError,
   }) {
-    return cacheFailure?.call();
+    return cacheError?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? serverFailure,
-    TResult Function()? cacheFailure,
+    TResult Function()? cacheError,
     required TResult orElse(),
   }) {
-    if (cacheFailure != null) {
-      return cacheFailure();
+    if (cacheError != null) {
+      return cacheError();
     }
     return orElse();
   }
@@ -262,35 +363,32 @@ class _$CacheFailure implements CacheFailure {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ServerFailure value) serverFailure,
-    required TResult Function(CacheFailure value) cacheFailure,
+    required TResult Function(CacheError value) cacheError,
   }) {
-    return cacheFailure(this);
+    return cacheError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(CacheError value)? cacheError,
   }) {
-    return cacheFailure?.call(this);
+    return cacheError?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ServerFailure value)? serverFailure,
-    TResult Function(CacheFailure value)? cacheFailure,
+    TResult Function(CacheError value)? cacheError,
     required TResult orElse(),
   }) {
-    if (cacheFailure != null) {
-      return cacheFailure(this);
+    if (cacheError != null) {
+      return cacheError(this);
     }
     return orElse();
   }
 }
 
-abstract class CacheFailure implements Failures {
-  const factory CacheFailure() = _$CacheFailure;
+abstract class CacheError implements CacheFailure {
+  const factory CacheError() = _$CacheError;
 }

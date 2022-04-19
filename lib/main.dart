@@ -6,6 +6,8 @@ import 'package:people_rating_app/themes.dart';
 import 'package:people_rating_app/ui/core/main_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   configureInjection(Environment.prod);
 
   runApp(const MyApp());

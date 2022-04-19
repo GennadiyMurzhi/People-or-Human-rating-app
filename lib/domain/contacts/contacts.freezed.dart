@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Contacts _$ContactsFromJson(Map<String, dynamic> json) {
+  return _Contacts.fromJson(json);
+}
+
 /// @nodoc
 class _$ContactsTearOff {
   const _$ContactsTearOff();
@@ -22,6 +26,10 @@ class _$ContactsTearOff {
     return _Contacts(
       contacts: contacts,
     );
+  }
+
+  Contacts fromJson(Map<String, Object?> json) {
+    return Contacts.fromJson(json);
   }
 }
 
@@ -32,6 +40,7 @@ const $Contacts = _$ContactsTearOff();
 mixin _$Contacts {
   List<Contact> get contacts => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ContactsCopyWith<Contacts> get copyWith =>
       throw _privateConstructorUsedError;
@@ -96,9 +105,12 @@ class __$ContactsCopyWithImpl<$Res> extends _$ContactsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Contacts implements _Contacts {
   const _$_Contacts({required this.contacts});
+
+  factory _$_Contacts.fromJson(Map<String, dynamic> json) =>
+      _$$_ContactsFromJson(json);
 
   @override
   final List<Contact> contacts;
@@ -124,10 +136,17 @@ class _$_Contacts implements _Contacts {
   @override
   _$ContactsCopyWith<_Contacts> get copyWith =>
       __$ContactsCopyWithImpl<_Contacts>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ContactsToJson(this);
+  }
 }
 
 abstract class _Contacts implements Contacts {
   const factory _Contacts({required List<Contact> contacts}) = _$_Contacts;
+
+  factory _Contacts.fromJson(Map<String, dynamic> json) = _$_Contacts.fromJson;
 
   @override
   List<Contact> get contacts;
@@ -135,6 +154,10 @@ abstract class _Contacts implements Contacts {
   @JsonKey(ignore: true)
   _$ContactsCopyWith<_Contacts> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+Contact _$ContactFromJson(Map<String, dynamic> json) {
+  return _Contact.fromJson(json);
 }
 
 /// @nodoc
@@ -147,6 +170,10 @@ class _$ContactTearOff {
       phones: phones,
     );
   }
+
+  Contact fromJson(Map<String, Object?> json) {
+    return Contact.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -157,6 +184,7 @@ mixin _$Contact {
   String get name => throw _privateConstructorUsedError;
   List<String> get phones => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ContactCopyWith<Contact> get copyWith => throw _privateConstructorUsedError;
 }
@@ -230,9 +258,12 @@ class __$ContactCopyWithImpl<$Res> extends _$ContactCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Contact implements _Contact {
   const _$_Contact({required this.name, required this.phones});
+
+  factory _$_Contact.fromJson(Map<String, dynamic> json) =>
+      _$$_ContactFromJson(json);
 
   @override
   final String name;
@@ -263,11 +294,18 @@ class _$_Contact implements _Contact {
   @override
   _$ContactCopyWith<_Contact> get copyWith =>
       __$ContactCopyWithImpl<_Contact>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ContactToJson(this);
+  }
 }
 
 abstract class _Contact implements Contact {
   const factory _Contact({required String name, required List<String> phones}) =
       _$_Contact;
+
+  factory _Contact.fromJson(Map<String, dynamic> json) = _$_Contact.fromJson;
 
   @override
   String get name;

@@ -1,11 +1,11 @@
 import 'package:contacts_service/contacts_service.dart' as contacts_service;
 import 'package:injectable/injectable.dart';
 import 'package:people_rating_app/domain/contacts/contacts.dart';
-import 'package:people_rating_app/domain/core/i_contctas_vendor.dart';
+import 'package:people_rating_app/domain/core/i_contacts_vendor.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-@injectable
-class ContactsVendor extends IContactsVendor {
+@Injectable(as: IContactsVendor)
+class ContactsVendor implements IContactsVendor {
   @override
   Future<Contacts> getContacts() async {
     final contacts = await contacts_service.ContactsService.getContacts();

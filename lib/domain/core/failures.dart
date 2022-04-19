@@ -3,7 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'failures.freezed.dart';
 
 @freezed
-abstract class Failures with _$Failures{
-  const factory Failures.serverFailure() = ServerFailure;
-  const factory Failures.cacheFailure() = CacheFailure;
+abstract class ServerFailure with _$ServerFailure {
+  const factory ServerFailure.serverError({
+    required int statusCode,
+  }) = ServerError;
+}
+
+@freezed
+abstract class CacheFailure with _$CacheFailure {
+  const factory CacheFailure.cacheError() = CacheError;
 }
