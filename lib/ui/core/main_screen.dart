@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget{
           bottomNavigationBar: true,
           child: PageView(
             controller: getIt<PageController>(),
-            onPageChanged: (index) => BlocProvider.of<MainScreenCubit>(context).onPageScroll(index),
+            onPageChanged: (index) => BlocProvider.of<MainScreenCubit>(context).onPageScroll(index, context),
             children: <Widget>[
               ContactsPage(),
               Text('\n\n\n\n\n\n\nThe profile page will be', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,),

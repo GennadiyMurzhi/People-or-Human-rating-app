@@ -6,34 +6,52 @@ import 'package:path/path.dart';
 
 @Injectable(as: IDatabaseVendor)
 class DatabaseVendor implements IDatabaseVendor {
-  late Database _database;
+  Database? _database;
 
-  Future<void> initDatabase() async {
-    if (!_database.isOpen) {
+  Future<void> _initDatabase() async {
+    if(_database == null) {
       final databasesPath = await getDatabasesPath();
       String path = join(databasesPath, 'app.db');
       _database = await openDatabase(path, version: 1, onCreate: (Database db, int version) async {
-        await db.execute('CREATE TABLE Contact (contact_id INTEGER PRIMARY KEY, name TEXT, registered BOOL)');
+        await db.execute('CREATE TABLE Contact (contact_id INTEGER PRIMARY KEY, name TEXT, registered BOOLEAN)');
         await db
-            .execute('CREATE TABLE PhoneNumber (phone_number_id INTEGER PRIMARY KEY, contact_id INTEGER phone TEXT)');
+            .execute('CREATE TABLE PhoneNumber (phone_number_id INTEGER PRIMARY KEY, contact_id INTEGER, phone TEXT)');
       });
     }
   }
 
   @override
   Future<void> cacheContacts(Contacts contactsOfRegisteredUsers, Contacts contactsOfUnregisteredUsers) async {
+    await _initDatabase();
+
     await _insertContactsCycle(contactsOfRegisteredUsers, true);
 
     await _insertContactsCycle(contactsOfUnregisteredUsers, false);
   }
 
+  @override
+  Future<Map<String, Contacts>> getCachedContacts() async {
+    await _initDatabase();
+
+    final contactsOfRegisteredUsersMaps = await _database!.rawQuery(_contactRawSQLString(true));
+    final contactsOfUnregisteredUsersMaps = await _database!.rawQuery(_contactRawSQLString(false));
+
+    final contactsOfRegisteredUsers = _mapsToContacts(contactsOfRegisteredUsersMaps);
+    final contactsOfUnregisteredUsers = _mapsToContacts(contactsOfUnregisteredUsersMaps);
+
+    return {
+      'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
+      'contactsUnRegisteredUsers': contactsOfUnregisteredUsers,
+    };
+  }
+
   Future<void> _insertContactsCycle(Contacts contacts, bool registered) async {
-    final countContactsInTable = Sqflite.firstIntValue(await _database.rawQuery('SELECT COUNT(*) FROM Contact'));
+    final countContactsInTable = Sqflite.firstIntValue(await _database!.rawQuery('SELECT COUNT(*) FROM Contact'));
 
     for (int i = 0; i <= contacts.contacts.length - 1; i++) {
-      await _database.transaction((txn) async {
+      await _database!.transaction((txn) async {
         await txn.rawInsert('INSERT INTO Contact(name, registered) VALUES(${contacts.contacts[i].name}, ' +
-            (registered ? 'TRUE' : 'FALSE') +
+            (registered ? '1' : '0') +
             ' )');
         for (int k = 0; k <= contacts.contacts[i].phones.length - 1; k++) {
           await txn.rawInsert(
@@ -43,23 +61,9 @@ class DatabaseVendor implements IDatabaseVendor {
     }
   }
 
-  @override
-  Future<Map<String, Contacts>> getCachedContacts() async {
-    final contactsOfRegisteredUsersMaps = await _database.rawQuery(_contactRawSQLString(true));
-    final contactsOfUnregisteredUsersMaps = await _database.rawQuery(_contactRawSQLString(false));
-
-    final contactsOfRegisteredUsers = _mapsToContacts(contactsOfRegisteredUsersMaps);
-    final contactsOfUnregisteredUsers = _mapsToContacts(contactsOfUnregisteredUsersMaps);
-
-    return {
-      'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
-      'contactsOfUnregisteredUsers': contactsOfUnregisteredUsers,
-    };
-  }
-
   String _contactRawSQLString(bool registered) =>
       'Select name, phone FROM Contact INNER JOIN PhoneNumber Using(contact_id) WHERE registered = ' +
-      (registered ? 'TRUE' : 'FALSE');
+      (registered ? '1' : '0');
 
   Contacts _mapsToContacts(List<Map<String, Object?>> list) {
     var contactsList = list;

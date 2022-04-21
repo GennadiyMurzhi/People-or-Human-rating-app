@@ -4,6 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubit.dart';
 
 class BottomNavigationBarCustom extends StatelessWidget{
+  final String _patchIconContacts = 'resources/icons/svg/contacts_icon.svg';
+  final String _patchIconPerson = 'resources/icons/svg/person_icon.svg';
+  final String _patchIconStarRate = 'resources/icons/svg/star_rate_icon.svg';
 
   const BottomNavigationBarCustom({Key? key}) : super(key: key);
 
@@ -24,25 +27,25 @@ class BottomNavigationBarCustom extends StatelessWidget{
           unselectedFontSize: 0,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset('resources/icons/svg/contacts_icon.svg'),
+              icon: SvgPicture.asset(_patchIconContacts),
               activeIcon: SvgPicture.asset(
-                'resources/icons/svg/contacts_icon.svg',
+                _patchIconContacts,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset('resources/icons/svg/person_icon.svg'),
+              icon: SvgPicture.asset(_patchIconPerson),
               activeIcon: SvgPicture.asset(
-                'resources/icons/svg/person_icon.svg',
+                _patchIconPerson,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset('resources/icons/svg/star_rate_icon.svg'),
+              icon: SvgPicture.asset(_patchIconStarRate),
               activeIcon: SvgPicture.asset(
-                'resources/icons/svg/star_rate_icon.svg',
+                _patchIconStarRate,
                 color: Theme.of(context).colorScheme.secondary,
               ),
               label: '',

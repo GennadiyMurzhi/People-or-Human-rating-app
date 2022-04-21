@@ -7,11 +7,11 @@ import 'package:people_rating_app/domain/contacts/i_contacts_remote_data_sorce.d
 import 'package:people_rating_app/domain/contacts/i_contacts_repository.dart';
 import 'package:people_rating_app/domain/core/failures.dart';
 import 'package:people_rating_app/domain/core/errors.dart' as errors;
-import 'package:people_rating_app/infrastructure/core/contacts_vendor.dart';
+import 'package:people_rating_app/domain/core/i_contacts_vendor.dart';
 
 @Injectable()
 class ContactsRepository implements IContactsRepository {
-  final ContactsVendor _contactsVendor;
+  final IContactsVendor _contactsVendor;
   final IContactsRemoteDataSource _contactsRemoteDataSource;
   final IContactsLocalDataSource _contactsLocalDataSource;
 

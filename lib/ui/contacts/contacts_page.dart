@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubit.dart';
@@ -8,7 +9,6 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final contacts = BlocProvider.of<MainScreenCubit>(context).state.contacts;
 
     return Column(
@@ -28,7 +28,7 @@ class ContactsPage extends StatelessWidget {
         Expanded(
           child: Stack(
             children: [
-              ListView(
+              if(contacts != null) ListView(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 19,
                   vertical: 18,
@@ -37,17 +37,25 @@ class ContactsPage extends StatelessWidget {
                   Center(
                     child: Wrap(
                       children: List.generate(
-                        contacts!.contacts.length,
-                        (index) => ContactWidget(
-                          name: contacts.contacts[index].name,
-                          ratedYouCount: 0,
-                          ratedItCount: 0,
-                        ),
-                      ),
+                            contacts['contactsOfRegisteredUsers']!.contacts.length,
+                            (index) => ContactWidget(
+                              name: contacts['contactsOfRegisteredUsers']!.contacts[index].name,
+                              ratedYouCount: 0,
+                              ratedItCount: 0,
+                            ),
+                          ) +
+                          List.generate(
+                            contacts['contactsUnRegisteredUsers']!.contacts.length,
+                            (index) => ContactWidget(
+                              name: contacts['contactsUnRegisteredUsers']!.contacts[index].name,
+                              ratedYouCount: 0,
+                              ratedItCount: 0,
+                            ),
+                          ),
                     ),
                   ),
                 ],
-              ),
+              ) else const Center(child: Text('LOADING LOL ...', style: TextStyle(color: Colors.deepOrange,fontSize: 28, fontWeight: FontWeight.bold,),)),
               Container(
                 height: 18,
                 decoration: BoxDecoration(

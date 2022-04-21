@@ -8,7 +8,13 @@ import 'package:permission_handler/permission_handler.dart';
 class ContactsVendor implements IContactsVendor {
   @override
   Future<Contacts> getContacts() async {
-    final contacts = await contacts_service.ContactsService.getContacts();
+    final contacts = await contacts_service.ContactsService.getContacts(
+      withThumbnails: false,
+      photoHighResolution: false,
+      orderByGivenName: false,
+      androidLocalizedLabels: false,
+      iOSLocalizedLabels: false,
+    );
 
     return Contacts(
       contacts: List.generate(

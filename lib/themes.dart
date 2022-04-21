@@ -12,6 +12,23 @@ final greenOrangeTheme = ThemeData.light().copyWith(
   ),
   scaffoldBackgroundColor: const Color(0xFFF2F2F2),
   backgroundColor: const Color(0xFFF2F2F2),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: const Color(0xFF0DA64F),
+    behavior: SnackBarBehavior.floating,
+    elevation: 2,
+    contentTextStyle: const TextStyle(
+      color: Color(0xFFF2F2F2),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: const BorderSide(
+        color: Color(0xFFD2D6D9),
+        width: 2,
+      ),
+    ),
+  ),
   textTheme: const TextTheme(
     headlineSmall: TextStyle(
       fontSize: 24,
@@ -40,7 +57,6 @@ final greenOrangeTheme = ThemeData.light().copyWith(
       fontFamily: 'Roboto',
       letterSpacing: 0,
     ),
-
   ),
   appBarTheme: const AppBarTheme(
     centerTitle: true,

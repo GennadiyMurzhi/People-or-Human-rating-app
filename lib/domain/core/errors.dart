@@ -1,7 +1,7 @@
-class ServerError extends Error{
+class ServerError implements Exception{
   final int statusCode;
 
-  ServerError(this.statusCode);
+  ServerError({required this.statusCode});
 
   @override
   String toString(){
@@ -9,6 +9,6 @@ class ServerError extends Error{
   }
 }
 
-class NoInternetConnectionError extends Error{}
+class NoInternetConnectionError implements Exception{}
 
-class CacheError extends Error{}
+class CacheError implements Exception{}
