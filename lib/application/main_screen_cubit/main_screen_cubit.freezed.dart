@@ -22,12 +22,18 @@ class _$MainScreenStateTearOff {
       {required String title,
       required bool drawerOrArrowBack,
       required int currentPageIndex,
-      required Contacts contacts}) {
+      Map<String, Contacts>? contacts,
+      required bool serverError,
+      required bool noInternetConnection,
+      required bool noPermission}) {
     return _MainSreenState(
       title: title,
       drawerOrArrowBack: drawerOrArrowBack,
       currentPageIndex: currentPageIndex,
       contacts: contacts,
+      serverError: serverError,
+      noInternetConnection: noInternetConnection,
+      noPermission: noPermission,
     );
   }
 }
@@ -39,8 +45,12 @@ const $MainScreenState = _$MainScreenStateTearOff();
 mixin _$MainScreenState {
   String get title => throw _privateConstructorUsedError;
   bool get drawerOrArrowBack => throw _privateConstructorUsedError;
-  int get currentPageIndex => throw _privateConstructorUsedError;
-  Contacts get contacts => throw _privateConstructorUsedError;
+  int get currentPageIndex =>
+      throw _privateConstructorUsedError; //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
+  Map<String, Contacts>? get contacts => throw _privateConstructorUsedError;
+  bool get serverError => throw _privateConstructorUsedError;
+  bool get noInternetConnection => throw _privateConstructorUsedError;
+  bool get noPermission => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainScreenStateCopyWith<MainScreenState> get copyWith =>
@@ -56,9 +66,10 @@ abstract class $MainScreenStateCopyWith<$Res> {
       {String title,
       bool drawerOrArrowBack,
       int currentPageIndex,
-      Contacts contacts});
-
-  $ContactsCopyWith<$Res> get contacts;
+      Map<String, Contacts>? contacts,
+      bool serverError,
+      bool noInternetConnection,
+      bool noPermission});
 }
 
 /// @nodoc
@@ -76,6 +87,9 @@ class _$MainScreenStateCopyWithImpl<$Res>
     Object? drawerOrArrowBack = freezed,
     Object? currentPageIndex = freezed,
     Object? contacts = freezed,
+    Object? serverError = freezed,
+    Object? noInternetConnection = freezed,
+    Object? noPermission = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -93,15 +107,20 @@ class _$MainScreenStateCopyWithImpl<$Res>
       contacts: contacts == freezed
           ? _value.contacts
           : contacts // ignore: cast_nullable_to_non_nullable
-              as Contacts,
+              as Map<String, Contacts>?,
+      serverError: serverError == freezed
+          ? _value.serverError
+          : serverError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noInternetConnection: noInternetConnection == freezed
+          ? _value.noInternetConnection
+          : noInternetConnection // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noPermission: noPermission == freezed
+          ? _value.noPermission
+          : noPermission // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
-  }
-
-  @override
-  $ContactsCopyWith<$Res> get contacts {
-    return $ContactsCopyWith<$Res>(_value.contacts, (value) {
-      return _then(_value.copyWith(contacts: value));
-    });
   }
 }
 
@@ -116,10 +135,10 @@ abstract class _$MainSreenStateCopyWith<$Res>
       {String title,
       bool drawerOrArrowBack,
       int currentPageIndex,
-      Contacts contacts});
-
-  @override
-  $ContactsCopyWith<$Res> get contacts;
+      Map<String, Contacts>? contacts,
+      bool serverError,
+      bool noInternetConnection,
+      bool noPermission});
 }
 
 /// @nodoc
@@ -139,6 +158,9 @@ class __$MainSreenStateCopyWithImpl<$Res>
     Object? drawerOrArrowBack = freezed,
     Object? currentPageIndex = freezed,
     Object? contacts = freezed,
+    Object? serverError = freezed,
+    Object? noInternetConnection = freezed,
+    Object? noPermission = freezed,
   }) {
     return _then(_MainSreenState(
       title: title == freezed
@@ -156,7 +178,19 @@ class __$MainSreenStateCopyWithImpl<$Res>
       contacts: contacts == freezed
           ? _value.contacts
           : contacts // ignore: cast_nullable_to_non_nullable
-              as Contacts,
+              as Map<String, Contacts>?,
+      serverError: serverError == freezed
+          ? _value.serverError
+          : serverError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noInternetConnection: noInternetConnection == freezed
+          ? _value.noInternetConnection
+          : noInternetConnection // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noPermission: noPermission == freezed
+          ? _value.noPermission
+          : noPermission // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -168,7 +202,10 @@ class _$_MainSreenState implements _MainSreenState {
       {required this.title,
       required this.drawerOrArrowBack,
       required this.currentPageIndex,
-      required this.contacts});
+      this.contacts,
+      required this.serverError,
+      required this.noInternetConnection,
+      required this.noPermission});
 
   @override
   final String title;
@@ -176,12 +213,18 @@ class _$_MainSreenState implements _MainSreenState {
   final bool drawerOrArrowBack;
   @override
   final int currentPageIndex;
+  @override //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
+  final Map<String, Contacts>? contacts;
   @override
-  final Contacts contacts;
+  final bool serverError;
+  @override
+  final bool noInternetConnection;
+  @override
+  final bool noPermission;
 
   @override
   String toString() {
-    return 'MainScreenState(title: $title, drawerOrArrowBack: $drawerOrArrowBack, currentPageIndex: $currentPageIndex, contacts: $contacts)';
+    return 'MainScreenState(title: $title, drawerOrArrowBack: $drawerOrArrowBack, currentPageIndex: $currentPageIndex, contacts: $contacts, serverError: $serverError, noInternetConnection: $noInternetConnection, noPermission: $noPermission)';
   }
 
   @override
@@ -194,7 +237,13 @@ class _$_MainSreenState implements _MainSreenState {
                 .equals(other.drawerOrArrowBack, drawerOrArrowBack) &&
             const DeepCollectionEquality()
                 .equals(other.currentPageIndex, currentPageIndex) &&
-            const DeepCollectionEquality().equals(other.contacts, contacts));
+            const DeepCollectionEquality().equals(other.contacts, contacts) &&
+            const DeepCollectionEquality()
+                .equals(other.serverError, serverError) &&
+            const DeepCollectionEquality()
+                .equals(other.noInternetConnection, noInternetConnection) &&
+            const DeepCollectionEquality()
+                .equals(other.noPermission, noPermission));
   }
 
   @override
@@ -203,7 +252,10 @@ class _$_MainSreenState implements _MainSreenState {
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(drawerOrArrowBack),
       const DeepCollectionEquality().hash(currentPageIndex),
-      const DeepCollectionEquality().hash(contacts));
+      const DeepCollectionEquality().hash(contacts),
+      const DeepCollectionEquality().hash(serverError),
+      const DeepCollectionEquality().hash(noInternetConnection),
+      const DeepCollectionEquality().hash(noPermission));
 
   @JsonKey(ignore: true)
   @override
@@ -216,7 +268,10 @@ abstract class _MainSreenState implements MainScreenState {
       {required String title,
       required bool drawerOrArrowBack,
       required int currentPageIndex,
-      required Contacts contacts}) = _$_MainSreenState;
+      Map<String, Contacts>? contacts,
+      required bool serverError,
+      required bool noInternetConnection,
+      required bool noPermission}) = _$_MainSreenState;
 
   @override
   String get title;
@@ -224,8 +279,14 @@ abstract class _MainSreenState implements MainScreenState {
   bool get drawerOrArrowBack;
   @override
   int get currentPageIndex;
+  @override //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
+  Map<String, Contacts>? get contacts;
   @override
-  Contacts get contacts;
+  bool get serverError;
+  @override
+  bool get noInternetConnection;
+  @override
+  bool get noPermission;
   @override
   @JsonKey(ignore: true)
   _$MainSreenStateCopyWith<_MainSreenState> get copyWith =>

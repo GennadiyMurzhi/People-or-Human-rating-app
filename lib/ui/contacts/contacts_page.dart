@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubit.dart';
@@ -39,7 +37,7 @@ class ContactsPage extends StatelessWidget {
                   Center(
                     child: Wrap(
                       children: List.generate(
-                        contacts.contacts.length,
+                        contacts!.contacts.length,
                         (index) => ContactWidget(
                           name: contacts.contacts[index].name,
                           ratedYouCount: 0,

@@ -23,6 +23,10 @@ class _$ServerFailureTearOff {
       statusCode: statusCode,
     );
   }
+
+  NoInternetConnection noInternetConnection() {
+    return const NoInternetConnection();
+  }
 }
 
 /// @nodoc
@@ -30,43 +34,43 @@ const $ServerFailure = _$ServerFailureTearOff();
 
 /// @nodoc
 mixin _$ServerFailure {
-  int get statusCode => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int statusCode) serverError,
+    required TResult Function() noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
+    required TResult Function(NoInternetConnection value) noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ServerFailureCopyWith<ServerFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -75,7 +79,6 @@ abstract class $ServerFailureCopyWith<$Res> {
   factory $ServerFailureCopyWith(
           ServerFailure value, $Res Function(ServerFailure) then) =
       _$ServerFailureCopyWithImpl<$Res>;
-  $Res call({int statusCode});
 }
 
 /// @nodoc
@@ -86,27 +89,13 @@ class _$ServerFailureCopyWithImpl<$Res>
   final ServerFailure _value;
   // ignore: unused_field
   final $Res Function(ServerFailure) _then;
-
-  @override
-  $Res call({
-    Object? statusCode = freezed,
-  }) {
-    return _then(_value.copyWith(
-      statusCode: statusCode == freezed
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class $ServerErrorCopyWith<$Res>
-    implements $ServerFailureCopyWith<$Res> {
+abstract class $ServerErrorCopyWith<$Res> {
   factory $ServerErrorCopyWith(
           ServerError value, $Res Function(ServerError) then) =
       _$ServerErrorCopyWithImpl<$Res>;
-  @override
   $Res call({int statusCode});
 }
 
@@ -168,6 +157,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int statusCode) serverError,
+    required TResult Function() noInternetConnection,
   }) {
     return serverError(statusCode);
   }
@@ -176,6 +166,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
   }) {
     return serverError?.call(statusCode);
   }
@@ -184,6 +175,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -196,6 +188,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ServerError value) serverError,
+    required TResult Function(NoInternetConnection value) noInternetConnection,
   }) {
     return serverError(this);
   }
@@ -204,6 +197,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
   }) {
     return serverError?.call(this);
   }
@@ -212,6 +206,7 @@ class _$ServerError implements ServerError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
     required TResult orElse(),
   }) {
     if (serverError != null) {
@@ -224,12 +219,115 @@ class _$ServerError implements ServerError {
 abstract class ServerError implements ServerFailure {
   const factory ServerError({required int statusCode}) = _$ServerError;
 
-  @override
   int get statusCode;
-  @override
   @JsonKey(ignore: true)
   $ServerErrorCopyWith<ServerError> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $NoInternetConnectionCopyWith<$Res> {
+  factory $NoInternetConnectionCopyWith(NoInternetConnection value,
+          $Res Function(NoInternetConnection) then) =
+      _$NoInternetConnectionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$NoInternetConnectionCopyWithImpl<$Res>
+    extends _$ServerFailureCopyWithImpl<$Res>
+    implements $NoInternetConnectionCopyWith<$Res> {
+  _$NoInternetConnectionCopyWithImpl(
+      NoInternetConnection _value, $Res Function(NoInternetConnection) _then)
+      : super(_value, (v) => _then(v as NoInternetConnection));
+
+  @override
+  NoInternetConnection get _value => super._value as NoInternetConnection;
+}
+
+/// @nodoc
+
+class _$NoInternetConnection implements NoInternetConnection {
+  const _$NoInternetConnection();
+
+  @override
+  String toString() {
+    return 'ServerFailure.noInternetConnection()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is NoInternetConnection);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int statusCode) serverError,
+    required TResult Function() noInternetConnection,
+  }) {
+    return noInternetConnection();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
+  }) {
+    return noInternetConnection?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int statusCode)? serverError,
+    TResult Function()? noInternetConnection,
+    required TResult orElse(),
+  }) {
+    if (noInternetConnection != null) {
+      return noInternetConnection();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(NoInternetConnection value) noInternetConnection,
+  }) {
+    return noInternetConnection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
+  }) {
+    return noInternetConnection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ServerError value)? serverError,
+    TResult Function(NoInternetConnection value)? noInternetConnection,
+    required TResult orElse(),
+  }) {
+    if (noInternetConnection != null) {
+      return noInternetConnection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoInternetConnection implements ServerFailure {
+  const factory NoInternetConnection() = _$NoInternetConnection;
 }
 
 /// @nodoc
@@ -238,6 +336,10 @@ class _$CacheFailureTearOff {
 
   CacheError cacheError() {
     return const CacheError();
+  }
+
+  NoDataFound noDataFound() {
+    return const NoDataFound();
   }
 }
 
@@ -249,32 +351,38 @@ mixin _$CacheFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() cacheError,
+    required TResult Function() noDataFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? cacheError,
+    TResult Function()? noDataFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cacheError,
+    TResult Function()? noDataFound,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CacheError value) cacheError,
+    required TResult Function(NoDataFound value) noDataFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -336,6 +444,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() cacheError,
+    required TResult Function() noDataFound,
   }) {
     return cacheError();
   }
@@ -344,6 +453,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? cacheError,
+    TResult Function()? noDataFound,
   }) {
     return cacheError?.call();
   }
@@ -352,6 +462,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cacheError,
+    TResult Function()? noDataFound,
     required TResult orElse(),
   }) {
     if (cacheError != null) {
@@ -364,6 +475,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CacheError value) cacheError,
+    required TResult Function(NoDataFound value) noDataFound,
   }) {
     return cacheError(this);
   }
@@ -372,6 +484,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
   }) {
     return cacheError?.call(this);
   }
@@ -380,6 +493,7 @@ class _$CacheError implements CacheError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
     required TResult orElse(),
   }) {
     if (cacheError != null) {
@@ -391,4 +505,108 @@ class _$CacheError implements CacheError {
 
 abstract class CacheError implements CacheFailure {
   const factory CacheError() = _$CacheError;
+}
+
+/// @nodoc
+abstract class $NoDataFoundCopyWith<$Res> {
+  factory $NoDataFoundCopyWith(
+          NoDataFound value, $Res Function(NoDataFound) then) =
+      _$NoDataFoundCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$NoDataFoundCopyWithImpl<$Res> extends _$CacheFailureCopyWithImpl<$Res>
+    implements $NoDataFoundCopyWith<$Res> {
+  _$NoDataFoundCopyWithImpl(
+      NoDataFound _value, $Res Function(NoDataFound) _then)
+      : super(_value, (v) => _then(v as NoDataFound));
+
+  @override
+  NoDataFound get _value => super._value as NoDataFound;
+}
+
+/// @nodoc
+
+class _$NoDataFound implements NoDataFound {
+  const _$NoDataFound();
+
+  @override
+  String toString() {
+    return 'CacheFailure.noDataFound()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is NoDataFound);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cacheError,
+    required TResult Function() noDataFound,
+  }) {
+    return noDataFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? cacheError,
+    TResult Function()? noDataFound,
+  }) {
+    return noDataFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cacheError,
+    TResult Function()? noDataFound,
+    required TResult orElse(),
+  }) {
+    if (noDataFound != null) {
+      return noDataFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CacheError value) cacheError,
+    required TResult Function(NoDataFound value) noDataFound,
+  }) {
+    return noDataFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
+  }) {
+    return noDataFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CacheError value)? cacheError,
+    TResult Function(NoDataFound value)? noDataFound,
+    required TResult orElse(),
+  }) {
+    if (noDataFound != null) {
+      return noDataFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoDataFound implements CacheFailure {
+  const factory NoDataFound() = _$NoDataFound;
 }

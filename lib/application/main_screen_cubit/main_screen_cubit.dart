@@ -25,19 +25,10 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     );
 
     if (pageIndexSelected == 0) {
-      final contacts = await _contactsRepository.getContactsFromPhone();
-
-      contacts.fold(
-        (failure) => emit(
-          state.copyWith(
-            contacts: Contacts.empty(),
-          ),
-        ),
-        (contacts) => emit(
-          state.copyWith(
-            contacts: contacts,
-          ),
-        ),
+      final contactsFromPhone = await _contactsRepository.getContactsFromPhone();
+      contactsFromPhone.fold(
+        (noPermission) async => await _contactsFromServer(Contacts.empty()),
+        (contactsFromPhone) async => await _contactsFromServer(contactsFromPhone),
       );
     }
   }
@@ -47,6 +38,47 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       pageIndexSelected,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
+    );
+  }
+
+  Future<void> _contactsFromCache({required bool isServerError}) async {
+    final contactsFromCache = await _contactsRepository.getCashedContacts();
+    contactsFromCache.fold(
+      (cacheFailure) {
+        emit(
+          MainScreenState.emptyContacts(),
+        );
+      },
+      (contactsFromCache) => isServerError
+          ? emit(
+              MainScreenState.emptyContacts().copyWith(
+                contacts: contactsFromCache,
+                serverError: true,
+              ),
+            )
+          : emit(
+              MainScreenState.emptyContacts().copyWith(
+                contacts: contactsFromCache,
+                noInternetConnection: true,
+              ),
+            ),
+    );
+  }
+
+  Future<void> _contactsFromServer(Contacts contacts) async {
+    final contactsFromServer = await _contactsRepository.compareContactsFromTheServer(contacts);
+    contactsFromServer.fold(
+      (serverFailure) => serverFailure.map(
+        serverError: (serverError) async {
+          await _contactsFromCache(isServerError: true);
+        },
+        noInternetConnection: (e) async {
+          await _contactsFromCache(isServerError: false);
+        },
+      ),
+      (contactsFromServer) => emit(
+        MainScreenState.haveContacts(contactsFromServer),
+      ),
     );
   }
 }

@@ -45,21 +45,26 @@ class ContactsRepository implements IContactsRepository {
           contactsOfUnregisteredUsers.contacts.add(contactsFromPhone.contacts[i]);
         }
       }
-      //TODO: dodelat nahuy cache
 
       _contactsLocalDataSource.cacheContacts(contactsOfRegisteredUsers, contactsOfUnregisteredUsers);
+
       return Right({
         'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
         'contactsUnRegisteredUsers': contactsOfUnregisteredUsers,
       });
     } on errors.ServerError catch (e) {
       return Left(ServerFailure.serverError(statusCode: e.statusCode));
+    } on errors.NoInternetConnectionError {
+      return const Left(ServerFailure.noInternetConnection());
     }
   }
 
   @override
-  Future<Either<CacheFailure, Map<String, Contacts>>> getCashedContacts() {
-    // TODO: implement getCashedContacts
-    throw UnimplementedError();
+  Future<Either<CacheFailure, Map<String, Contacts>>> getCashedContacts() async {
+    try {
+      return Right(await _contactsLocalDataSource.getCashedContacts());
+    } on errors.CacheError {
+      return const Left(CacheFailure.cacheError());
+    }
   }
 }

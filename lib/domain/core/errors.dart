@@ -9,4 +9,6 @@ class ServerError extends Error{
   }
 }
 
+class NoInternetConnectionError extends Error{}
+
 class CacheError extends Error{}
