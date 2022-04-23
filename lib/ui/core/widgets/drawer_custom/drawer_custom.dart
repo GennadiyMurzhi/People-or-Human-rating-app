@@ -21,9 +21,7 @@ class DrawerCustom extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ConstrainedBox(
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).padding.top + 137,
-                  minWidth: 245),
+              constraints: BoxConstraints(minHeight: MediaQuery.of(context).padding.top + 137, minWidth: 245),
               child: Container(
                 decoration: const BoxDecoration(
                   color: Color(0xFF0DA64F),
@@ -32,9 +30,9 @@ class DrawerCustom extends StatelessWidget {
                   ),
                 ),
                 margin: EdgeInsets.zero,
-                padding: EdgeInsets.fromLTRB(
-                    40, MediaQuery.of(context).padding.top + 36, 15, 18),
+                padding: EdgeInsets.fromLTRB(40, MediaQuery.of(context).padding.top + 36, 15, 18),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -43,19 +41,16 @@ class DrawerCustom extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child:
-                      SvgPicture.asset('resources/images/svg/person.svg'),
+                      child: SvgPicture.asset('resources/images/svg/person.svg'),
                     ),
                     const SizedBox(
                       height: 13,
                     ),
                     Text(
-                      name
-                          .split(' ')
-                          .map((e) => e[0].toUpperCase() + e.substring(1))
-                          .join(' '),
+                      name.split(' ').map((e) => e[0].toUpperCase() + e.substring(1)).join(' '),
                       strutStyle: const StrutStyle(
-                          leadingDistribution: TextLeadingDistribution.even,),
+                        leadingDistribution: TextLeadingDistribution.even,
+                      ),
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.primary,
@@ -84,9 +79,18 @@ class DrawerCustom extends StatelessWidget {
                 const SizedBox(
                   height: 52,
                 ),
-                DrawerButton(label: 'Qualities', onTap: () {},),
-                DrawerButton(label: 'Settings', onTap: () {},),
-                DrawerButton(label: 'About', onTap: () {},),
+                DrawerButton(
+                  label: 'Qualities',
+                  onTap: () {},
+                ),
+                DrawerButton(
+                  label: 'Settings',
+                  onTap: () {},
+                ),
+                DrawerButton(
+                  label: 'About',
+                  onTap: () {},
+                ),
               ],
             ),
             const Spacer(),

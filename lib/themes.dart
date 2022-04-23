@@ -50,6 +50,14 @@ final greenOrangeTheme = ThemeData.light().copyWith(
       fontFamily: 'Roboto',
       letterSpacing: 0,
     ),
+    bodyMedium: TextStyle(
+      color: Color(0xFF5E5E5E),
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      fontFamily: 'Roboto',
+      letterSpacing: 0,
+      height: 1,
+    ),
     bodySmall: TextStyle(
       color: Color(0xFFF27405),
       fontWeight: FontWeight.w400,
@@ -81,29 +89,66 @@ final greenOrangeTheme = ThemeData.light().copyWith(
       ),
     ),
   ),
-  textButtonTheme: TextButtonThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       textStyle: MaterialStateProperty.all<TextStyle>(
         const TextStyle(
-          fontSize: 14,
+          fontSize: 16,
           color: Color(0xFF0DA64F),
           fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
         ),
       ),
       overlayColor: MaterialStateProperty.all<Color>(
         const Color(0x11000000),
       ),
       shape: MaterialStateProperty.all<OutlinedBorder>(
-        const ContinuousRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.zero),
+        const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
       ),
-      side: MaterialStateProperty.all<BorderSide>(BorderSide.none),
-      elevation: MaterialStateProperty.all<double>(0),
-      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
-      fixedSize: MaterialStateProperty.all<Size>(
-        const Size.fromHeight(38),
+      side: MaterialStateProperty.all<BorderSide>(
+        const BorderSide(
+          color: Color(0xFF0DA64F),
+          width: 2,
+        ),
       ),
+      backgroundColor: MaterialStateProperty.all<Color>(
+        const Color(0xFFF2F2F2),
+      ),
+      elevation: MaterialStateProperty.all<double>(2),
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
+        ),
+      ),
+      //fixedSize: MaterialStateProperty.all<Size>(const Size.fromHeight(38),),
+    ),
+  ),
+  bannerTheme: const MaterialBannerThemeData(
+    backgroundColor: Color(0x00F2F2F2),
+  ),
+  dialogTheme: DialogTheme(
+    backgroundColor: const Color(0xFFF2F2F2),
+    titleTextStyle: const TextStyle(
+      color: Color(0xFF5E5E5E),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
+      fontSize: 24,
+    ),
+    contentTextStyle: const TextStyle(
+      color: Color(0xFF5E5E5E),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+    ),
+    shape: RoundedRectangleBorder(
+      side: const BorderSide(
+        color: Color(0xFFD2D6D9),
+        width: 3,
+      ),
+      borderRadius: BorderRadius.circular(28),
     ),
   ),
 );

@@ -22,18 +22,12 @@ class _$MainScreenStateTearOff {
       {required String title,
       required bool drawerOrArrowBack,
       required int currentPageIndex,
-      Map<String, Contacts>? contacts,
-      required bool serverError,
-      required bool noInternetConnection,
-      required bool noPermission}) {
+      Map<String, Contacts>? contacts}) {
     return _MainSreenState(
       title: title,
       drawerOrArrowBack: drawerOrArrowBack,
       currentPageIndex: currentPageIndex,
       contacts: contacts,
-      serverError: serverError,
-      noInternetConnection: noInternetConnection,
-      noPermission: noPermission,
     );
   }
 }
@@ -48,9 +42,6 @@ mixin _$MainScreenState {
   int get currentPageIndex =>
       throw _privateConstructorUsedError; //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
   Map<String, Contacts>? get contacts => throw _privateConstructorUsedError;
-  bool get serverError => throw _privateConstructorUsedError;
-  bool get noInternetConnection => throw _privateConstructorUsedError;
-  bool get noPermission => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainScreenStateCopyWith<MainScreenState> get copyWith =>
@@ -66,10 +57,7 @@ abstract class $MainScreenStateCopyWith<$Res> {
       {String title,
       bool drawerOrArrowBack,
       int currentPageIndex,
-      Map<String, Contacts>? contacts,
-      bool serverError,
-      bool noInternetConnection,
-      bool noPermission});
+      Map<String, Contacts>? contacts});
 }
 
 /// @nodoc
@@ -87,9 +75,6 @@ class _$MainScreenStateCopyWithImpl<$Res>
     Object? drawerOrArrowBack = freezed,
     Object? currentPageIndex = freezed,
     Object? contacts = freezed,
-    Object? serverError = freezed,
-    Object? noInternetConnection = freezed,
-    Object? noPermission = freezed,
   }) {
     return _then(_value.copyWith(
       title: title == freezed
@@ -108,18 +93,6 @@ class _$MainScreenStateCopyWithImpl<$Res>
           ? _value.contacts
           : contacts // ignore: cast_nullable_to_non_nullable
               as Map<String, Contacts>?,
-      serverError: serverError == freezed
-          ? _value.serverError
-          : serverError // ignore: cast_nullable_to_non_nullable
-              as bool,
-      noInternetConnection: noInternetConnection == freezed
-          ? _value.noInternetConnection
-          : noInternetConnection // ignore: cast_nullable_to_non_nullable
-              as bool,
-      noPermission: noPermission == freezed
-          ? _value.noPermission
-          : noPermission // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -135,10 +108,7 @@ abstract class _$MainSreenStateCopyWith<$Res>
       {String title,
       bool drawerOrArrowBack,
       int currentPageIndex,
-      Map<String, Contacts>? contacts,
-      bool serverError,
-      bool noInternetConnection,
-      bool noPermission});
+      Map<String, Contacts>? contacts});
 }
 
 /// @nodoc
@@ -158,9 +128,6 @@ class __$MainSreenStateCopyWithImpl<$Res>
     Object? drawerOrArrowBack = freezed,
     Object? currentPageIndex = freezed,
     Object? contacts = freezed,
-    Object? serverError = freezed,
-    Object? noInternetConnection = freezed,
-    Object? noPermission = freezed,
   }) {
     return _then(_MainSreenState(
       title: title == freezed
@@ -179,18 +146,6 @@ class __$MainSreenStateCopyWithImpl<$Res>
           ? _value.contacts
           : contacts // ignore: cast_nullable_to_non_nullable
               as Map<String, Contacts>?,
-      serverError: serverError == freezed
-          ? _value.serverError
-          : serverError // ignore: cast_nullable_to_non_nullable
-              as bool,
-      noInternetConnection: noInternetConnection == freezed
-          ? _value.noInternetConnection
-          : noInternetConnection // ignore: cast_nullable_to_non_nullable
-              as bool,
-      noPermission: noPermission == freezed
-          ? _value.noPermission
-          : noPermission // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -202,10 +157,7 @@ class _$_MainSreenState implements _MainSreenState {
       {required this.title,
       required this.drawerOrArrowBack,
       required this.currentPageIndex,
-      this.contacts,
-      required this.serverError,
-      required this.noInternetConnection,
-      required this.noPermission});
+      this.contacts});
 
   @override
   final String title;
@@ -215,16 +167,10 @@ class _$_MainSreenState implements _MainSreenState {
   final int currentPageIndex;
   @override //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
   final Map<String, Contacts>? contacts;
-  @override
-  final bool serverError;
-  @override
-  final bool noInternetConnection;
-  @override
-  final bool noPermission;
 
   @override
   String toString() {
-    return 'MainScreenState(title: $title, drawerOrArrowBack: $drawerOrArrowBack, currentPageIndex: $currentPageIndex, contacts: $contacts, serverError: $serverError, noInternetConnection: $noInternetConnection, noPermission: $noPermission)';
+    return 'MainScreenState(title: $title, drawerOrArrowBack: $drawerOrArrowBack, currentPageIndex: $currentPageIndex, contacts: $contacts)';
   }
 
   @override
@@ -237,13 +183,7 @@ class _$_MainSreenState implements _MainSreenState {
                 .equals(other.drawerOrArrowBack, drawerOrArrowBack) &&
             const DeepCollectionEquality()
                 .equals(other.currentPageIndex, currentPageIndex) &&
-            const DeepCollectionEquality().equals(other.contacts, contacts) &&
-            const DeepCollectionEquality()
-                .equals(other.serverError, serverError) &&
-            const DeepCollectionEquality()
-                .equals(other.noInternetConnection, noInternetConnection) &&
-            const DeepCollectionEquality()
-                .equals(other.noPermission, noPermission));
+            const DeepCollectionEquality().equals(other.contacts, contacts));
   }
 
   @override
@@ -252,10 +192,7 @@ class _$_MainSreenState implements _MainSreenState {
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(drawerOrArrowBack),
       const DeepCollectionEquality().hash(currentPageIndex),
-      const DeepCollectionEquality().hash(contacts),
-      const DeepCollectionEquality().hash(serverError),
-      const DeepCollectionEquality().hash(noInternetConnection),
-      const DeepCollectionEquality().hash(noPermission));
+      const DeepCollectionEquality().hash(contacts));
 
   @JsonKey(ignore: true)
   @override
@@ -268,10 +205,7 @@ abstract class _MainSreenState implements MainScreenState {
       {required String title,
       required bool drawerOrArrowBack,
       required int currentPageIndex,
-      Map<String, Contacts>? contacts,
-      required bool serverError,
-      required bool noInternetConnection,
-      required bool noPermission}) = _$_MainSreenState;
+      Map<String, Contacts>? contacts}) = _$_MainSreenState;
 
   @override
   String get title;
@@ -281,12 +215,6 @@ abstract class _MainSreenState implements MainScreenState {
   int get currentPageIndex;
   @override //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
   Map<String, Contacts>? get contacts;
-  @override
-  bool get serverError;
-  @override
-  bool get noInternetConnection;
-  @override
-  bool get noPermission;
   @override
   @JsonKey(ignore: true)
   _$MainSreenStateCopyWith<_MainSreenState> get copyWith =>

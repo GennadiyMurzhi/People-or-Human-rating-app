@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:people_rating_app/ui/core/widgets/actions_params.dart';
 
-//TODO: style this
 class BannerCustom extends MaterialBanner {
   final String text;
-
-  ///keys must be of label and onPressed
-  final List<Map<String, Object>> listAction;
+  final List<ActionParams> listParams;
 
   BannerCustom({
     Key? key,
     required this.text,
-    required this.listAction,
+    required this.listParams,
   }) : super(
           key: key,
           content: Text(text),
           actions: List.generate(
-            listAction.length,
+            listParams.length,
             (index) => TextButton(
-              onPressed: () => listAction[index]['onPressed'] as Function,
-              child: Text(listAction[index]['label'] as String),
+              onPressed: () => listParams[index].onPressed,
+              child: Text(listParams[index].label),
             ),
           ),
         );
 }
+

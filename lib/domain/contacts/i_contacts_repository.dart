@@ -9,4 +9,5 @@ abstract class IContactsRepository{
   Future<Either<ServerFailure, Map<String, Contacts>>> compareContactsFromTheServer(Contacts contactsFromPhone);
   ///Keys are contactsOfRegisteredUsers and contactsUnRegisteredUsers
   Future<Either<CacheFailure, Map<String, Contacts>>> getCashedContacts();
+  Future<bool> get isContactAccess;
 }

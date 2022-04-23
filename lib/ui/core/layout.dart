@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:people_rating_app/ui/core/widgets/bottom_navigation_bar_custom.dart';
 import 'package:people_rating_app/ui/core/widgets/drawer_custom/drawer_custom.dart';
 
+final GlobalKey<ScaffoldState> layoutKey = GlobalKey<ScaffoldState>();
+
 class Layout extends StatelessWidget {
   final String title;
   final bool drawerOrArrowBack;
@@ -21,6 +23,7 @@ class Layout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      key: layoutKey,
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(

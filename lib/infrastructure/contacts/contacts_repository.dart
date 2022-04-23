@@ -67,4 +67,7 @@ class ContactsRepository implements IContactsRepository {
       return const Left(CacheFailure.cacheError());
     }
   }
+
+  @override
+  Future<bool> get isContactAccess async => await _contactsVendor.isGranted;
 }
