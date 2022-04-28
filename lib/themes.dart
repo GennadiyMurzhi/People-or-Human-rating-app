@@ -36,6 +36,12 @@ final greenOrangeTheme = ThemeData.light().copyWith(
       fontWeight: FontWeight.w900,
       color: Color(0xFF0DA64F),
     ),
+    titleLarge: TextStyle(
+      fontSize: 24,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w700,
+      color: Color(0xFF767676),
+    ),
     titleMedium: TextStyle(
       fontSize: 16,
       fontFamily: 'Roboto',
@@ -43,12 +49,26 @@ final greenOrangeTheme = ThemeData.light().copyWith(
       color: Color(0xFF0DA64F),
       decoration: TextDecoration.underline,
     ),
+    titleSmall: TextStyle(
+      fontSize: 14,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w300,
+      color: Color(0xFFF27405),
+    ),
     labelLarge: TextStyle(
       color: Color(0xFF0DA64F),
       fontWeight: FontWeight.w500,
       fontSize: 14,
       fontFamily: 'Roboto',
       letterSpacing: 0,
+    ),
+    labelMedium: TextStyle(
+      color: Color(0xFFF27405),
+      fontWeight: FontWeight.w300,
+      fontSize: 13,
+      fontFamily: 'Roboto',
+      letterSpacing: 0,
+      decoration: TextDecoration.underline,
     ),
     bodyMedium: TextStyle(
       color: Color(0xFF5E5E5E),
@@ -124,6 +144,18 @@ final greenOrangeTheme = ThemeData.light().copyWith(
         ),
       ),
       //fixedSize: MaterialStateProperty.all<Size>(const Size.fromHeight(38),),
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      overlayColor: MaterialStateProperty.all<Color>(const Color(0xFFF27405).withAlpha(80),),
     ),
   ),
   bannerTheme: const MaterialBannerThemeData(

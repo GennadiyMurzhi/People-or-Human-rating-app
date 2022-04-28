@@ -13,6 +13,14 @@ class DrawerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<OutlinedBorder>(
+          const RoundedRectangleBorder(),
+        ),
+        overlayColor: MaterialStateProperty.all<Color>(
+          Theme.of(context).colorScheme.secondary.withAlpha(50),
+        ),
+      ),
       onPressed: () => onTap(),
       child: Row(
         children: [

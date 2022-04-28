@@ -4,6 +4,7 @@ import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubi
 import 'package:people_rating_app/injection.dart';
 import 'package:people_rating_app/ui/contacts/contacts_page.dart';
 import 'package:people_rating_app/ui/core/layout.dart';
+import 'package:people_rating_app/ui/profile/profile_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MainScreen extends StatelessWidget{
@@ -24,7 +25,7 @@ class MainScreen extends StatelessWidget{
             onPageChanged: (index) => BlocProvider.of<MainScreenCubit>(context).onPageScroll(index),
             children: <Widget>[
               ContactsPage(),
-              Text('\n\n\n\n\n\n\nThe profile page will be', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,),
+              ProfilePage(),
               Text('\n\n\n\n\n\n\nThe page of evaluations will be', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,),
             ],
           ),
