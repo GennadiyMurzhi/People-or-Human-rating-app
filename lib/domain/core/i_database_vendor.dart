@@ -1,7 +1,7 @@
-import 'package:people_rating_app/domain/contacts/contacts.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 abstract class IDatabaseVendor {
-  Future<void> cacheContacts(Contacts contactsOfRegisteredUsers, Contacts contactsOfUnregisteredUsers);
-  ///Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
-  Future<Map<String, Contacts>> getCachedContacts();
+  Database? get database;
+
+  Future<void> initDatabase();
 }
