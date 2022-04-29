@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:people_rating_app/domain/contacts/contacts.dart';
 import 'package:people_rating_app/domain/contacts/i_contacts_local_data_source.dart';
+import 'package:people_rating_app/domain/core/errors.dart';
 import 'package:people_rating_app/domain/core/i_database_vendor.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -23,16 +24,33 @@ class ContactsLocalDataSource implements IContactsLocalDataSource {
   Future<Map<String, Contacts>> getCashedContacts() async {
     await _databaseVendor.initDatabase();
 
-    final contactsOfRegisteredUsersMaps = await _databaseVendor.database!.rawQuery(_contactRawSQLString(true));
-    final contactsOfUnregisteredUsersMaps = await _databaseVendor.database!.rawQuery(_contactRawSQLString(false));
+    final List<Map<String, Object?>> contactsOfRegisteredUsersMaps;
+    final List<Map<String, Object?>> contactsOfUnregisteredUsersMaps;
+    try{
+      contactsOfRegisteredUsersMaps = await _databaseVendor.database!.rawQuery(_contactRawSQLString(true));
+      contactsOfUnregisteredUsersMaps = await _databaseVendor.database!.rawQuery(_contactRawSQLString(false));
 
-    final contactsOfRegisteredUsers = _mapsToContacts(contactsOfRegisteredUsersMaps);
-    final contactsOfUnregisteredUsers = _mapsToContacts(contactsOfUnregisteredUsersMaps);
+      if(contactsOfRegisteredUsersMaps.isNotEmpty && contactsOfUnregisteredUsersMaps.isNotEmpty) {
+        final contactsOfRegisteredUsers = _mapsToContacts(contactsOfRegisteredUsersMaps);
+        final contactsOfUnregisteredUsers = _mapsToContacts(contactsOfUnregisteredUsersMaps);
 
-    return {
-      'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
-      'contactsUnRegisteredUsers': contactsOfUnregisteredUsers,
-    };
+        return {
+          'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
+          'contactsUnRegisteredUsers': contactsOfUnregisteredUsers,
+        };
+      } else {
+        throw CacheError(
+          statusCode: 1,
+          message: 'contactsOfRegisteredUsersMaps and contactsOfUnregisteredUsersMaps are empty',
+        );
+      }
+    } on DatabaseException catch (e) {
+      throw CacheError(
+        statusCode: 0,
+        message: e.toString(),
+      );
+    }
+
   }
 
   Future<void> _insertContactsCycle(Contacts contacts, bool registered) async {

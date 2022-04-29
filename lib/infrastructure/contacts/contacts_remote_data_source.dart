@@ -14,7 +14,7 @@ class ContactsRemoteDataSource implements IContactsRemoteDataSource {
 
   @override
   Future<Contacts> getContactsOfRegisteredUsers(Contacts contactsFromPhone) async {
-    if(await _networkInfo.isConnected) {
+    if (await _networkInfo.isConnected) {
       final Response response;
 
       try {
@@ -32,5 +32,4 @@ class ContactsRemoteDataSource implements IContactsRemoteDataSource {
       throw NoInternetConnectionError();
     }
   }
-
 }

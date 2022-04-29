@@ -9,7 +9,7 @@ import 'package:people_rating_app/domain/core/failures.dart';
 import 'package:people_rating_app/domain/core/errors.dart' as errors;
 import 'package:people_rating_app/domain/core/i_contacts_vendor.dart';
 
-@Injectable()
+@Injectable(as: IContactsRepository)
 class ContactsRepository implements IContactsRepository {
   final IContactsVendor _contactsVendor;
   final IContactsRemoteDataSource _contactsRemoteDataSource;
@@ -41,7 +41,7 @@ class ContactsRepository implements IContactsRepository {
       );
 
       for (int i = 0; i <= contactsFromPhone.contacts.length - 1; i++) {
-        if(!contactsFromPhone.contacts.contains(contactsOfRegisteredUsers.contacts[i])) {
+        if (!contactsFromPhone.contacts.contains(contactsOfRegisteredUsers.contacts[i])) {
           contactsOfUnregisteredUsers.contacts.add(contactsFromPhone.contacts[i]);
         }
       }

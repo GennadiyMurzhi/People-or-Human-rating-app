@@ -7,14 +7,13 @@ import 'package:people_rating_app/ui/core/layout.dart';
 import 'package:people_rating_app/ui/profile/profile_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class MainScreen extends StatelessWidget{
+class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
-      create: (context) => getIt<MainScreenCubit>(),
+      create: (context) => getIt<MainScreenCubit>()..onProfilePage(),
       child: BlocBuilder<MainScreenCubit, MainScreenState>(
         builder: (context, state) => Layout(
           title: state.title,
@@ -26,13 +25,15 @@ class MainScreen extends StatelessWidget{
             children: <Widget>[
               ContactsPage(),
               ProfilePage(),
-              Text('\n\n\n\n\n\n\nThe page of evaluations will be', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall,),
+              Text(
+                '\n\n\n\n\n\n\nThe page of evaluations will be',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ],
           ),
-
         ),
       ),
     );
   }
-
 }

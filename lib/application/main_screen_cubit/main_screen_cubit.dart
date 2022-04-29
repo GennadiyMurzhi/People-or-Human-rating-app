@@ -2,8 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:people_rating_app/domain/auth/user.dart';
 import 'package:people_rating_app/domain/contacts/contacts.dart';
-import 'package:people_rating_app/infrastructure/contacts/contacts_repository.dart';
+import 'package:people_rating_app/domain/contacts/i_contacts_repository.dart';
+import 'package:people_rating_app/domain/core/failures.dart';
+import 'package:people_rating_app/domain/profile/i_profile_repository.dart';
+import 'package:people_rating_app/domain/profile/profile.dart';
 import 'package:people_rating_app/ui/core/layout.dart';
 import 'package:people_rating_app/ui/core/widgets/actions_params.dart';
 import 'package:people_rating_app/ui/core/widgets/dilog_custom.dart';
@@ -16,19 +20,21 @@ part 'main_screen_state.dart';
 @injectable
 class MainScreenCubit extends Cubit<MainScreenState> {
   final PageController _mainScreenPageController;
-  final ContactsRepository _contactsRepository;
+  final IContactsRepository _contactsRepository;
+  final IProfileRepository _profileRepository;
 
-  MainScreenCubit(this._mainScreenPageController, this._contactsRepository)
-      : super(MainScreenState.initialMainScreen());
+  final _fakeUser = const User(phoneNumberId: '+38099221111');
+
+  MainScreenCubit(
+    this._mainScreenPageController,
+    this._contactsRepository,
+    this._profileRepository,
+  ) : super(MainScreenState.initialMainScreen());
 
   void onPageScroll(int pageIndexSelected) async {
     ScaffoldMessenger.of(layoutKey.currentContext!).clearSnackBars();
     if (pageIndexSelected == 0) {
-      emit(
-        state.copyWith(
-          currentPageIndex: pageIndexSelected,
-        ),
-      );
+      _firstEmitOnScroll(pageIndexSelected);
 
       if (!await _contactsRepository.isContactAccess) {
         showDialog(
@@ -54,10 +60,10 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       } else {
         _contactsFromPhone();
       }
+    } else if (pageIndexSelected == 1) {
+      onProfilePage();
     } else {
-      emit(
-        state.copyWith(currentPageIndex: pageIndexSelected),
-      );
+      _firstEmitOnScroll(pageIndexSelected);
     }
   }
 
@@ -66,6 +72,47 @@ class MainScreenCubit extends Cubit<MainScreenState> {
       pageIndexSelected,
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeInOut,
+    );
+  }
+
+  void onProfilePage() async {
+    _firstEmitOnScroll(1);
+
+    final profileFromServer = await _profileRepository.getProfileInfoFromServer(_fakeUser);
+    profileFromServer.fold(
+      (serverFailure) => _runServerFailureMap(
+        serverFailure,
+        () async {
+          final profileFromCache = await _profileRepository.getCachedProfileInfo();
+          profileFromCache.fold(
+            (cacheFailure) => emit(
+              state.copyWith(
+                isCacheError: true,
+              ),
+            ),
+            (profile) => _updateProfileEmit(profile),
+          );
+        },
+      ),
+      (profile) => _updateProfileEmit(profile),
+    );
+  }
+
+  void _updateProfileEmit(Profile profile) {
+    emit(
+      state.copyWith(
+        profile: profile,
+        isCacheError: false,
+      ),
+    );
+  }
+
+  void _firstEmitOnScroll(int pageIndexSelected) {
+    emit(
+      state.copyWith(
+        currentPageIndex: pageIndexSelected,
+        isCacheError: false,
+      ),
     );
   }
 
@@ -80,13 +127,11 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   void _contactsFromServer(Contacts contacts) async {
     final contactsFromServer = await _contactsRepository.compareContactsFromTheServer(contacts);
     contactsFromServer.fold(
-      (serverFailure) => serverFailure.map(
-        serverError: (serverError) => _runServerError(),
-        noInternetConnection: (e) => _runNoInternetConnection(),
-      ),
+      (serverFailure) => _runServerFailureMap(serverFailure, _contactsFromCache),
       (contactsFromServer) => emit(
         state.copyWith(
           contacts: contactsFromServer,
+          isCacheError: false,
         ),
       ),
     );
@@ -97,21 +142,33 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     contactsFromCache.fold(
       (cacheFailure) {
         emit(
-          MainScreenState.emptyContacts(),
+          state.copyWith(
+            isCacheError: true,
+          ),
         );
       },
       (contactsFromCache) => emit(
         state.copyWith(
           contacts: contactsFromCache,
+          isCacheError: false,
         ),
       ),
+    );
+  }
+
+  void _runServerFailureMap(ServerFailure serverFailure, Function fromCacheFun) {
+    serverFailure.map(
+      serverError: (serverError) => _runServerError(fromCacheFun),
+      noInternetConnection: (e) => _runNoInternetConnection(fromCacheFun),
     );
   }
 
   void _runGrunt() async {
     _contactsFromPhone();
     if (!await _contactsRepository.isContactAccess) {
-      _runSnackBar(text: 'Can\'t request access to contacts. Please provide access in the phone settings');
+      _runSnackBar(
+        text: 'Can\'t request access to contacts. Please provide access in the phone settings',
+      );
     }
   }
 
@@ -119,21 +176,31 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     _contactsFromServer(
       Contacts.empty(),
     );
-    _runSnackBar(text: 'No permission for contacts');
+    _runSnackBar(
+      text: 'No permission for contacts',
+    );
   }
 
-  void _runServerError() async {
-    _contactsFromCache();
-    _runSnackBar(text: 'Sorry, there\'s an error on the server');
+  void _runServerError(Function fromCacheFun) async {
+    fromCacheFun();
+    _runSnackBar(
+      text: 'Sorry, there\'s an error on the server',
+    );
   }
 
-  void _runNoInternetConnection() async {
-    _contactsFromCache();
-    _runSnackBar(text: 'You must be having problems with your Internet. Please check your connection');
+  void _runNoInternetConnection(Function fromCacheFun) async {
+    fromCacheFun();
+    _runSnackBar(
+      text: 'You must be having problems with your Internet. Please check your connection',
+    );
   }
 
   void _runSnackBar({
     required String text,
   }) =>
-      ScaffoldMessenger.of(layoutKey.currentContext!).showSnackBar(SnackBarCustom(text: text));
+      ScaffoldMessenger.of(layoutKey.currentContext!).showSnackBar(
+        SnackBarCustom(
+          text: text,
+        ),
+      );
 }

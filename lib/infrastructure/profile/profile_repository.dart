@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:people_rating_app/domain/auth/user.dart';
 import 'package:people_rating_app/domain/core/failures.dart';
 import 'package:people_rating_app/domain/core/errors.dart' as errors;
@@ -7,7 +8,8 @@ import 'package:people_rating_app/domain/profile/i_profile_remote_data_source.da
 import 'package:people_rating_app/domain/profile/i_profile_repository.dart';
 import 'package:people_rating_app/domain/profile/profile.dart';
 
-class ProfileRepository extends IProfileRepository{
+@Injectable(as: IProfileRepository)
+class ProfileRepository extends IProfileRepository {
   final IProfileRemoteDataSource _profileRemoteDataSource;
   final IProfileLocalDataSource _profileLocalDataSource;
 
@@ -16,8 +18,12 @@ class ProfileRepository extends IProfileRepository{
   @override
   Future<Either<ServerFailure, Profile>> getProfileInfoFromServer(User user) async {
     try {
-      return Right(await _profileRemoteDataSource.getProfileInfoFromServer(user.phoneNumberId));
-    } on errors.ServerError catch(e) {
+      final profile = await _profileRemoteDataSource.getProfileInfoFromServer(user.phoneNumberId);
+
+      await _profileLocalDataSource.cacheProfileInfo(profile);
+
+      return Right(profile);
+    } on errors.ServerError catch (e) {
       return Left(ServerFailure.serverError(statusCode: e.statusCode));
     } on errors.NoInternetConnectionError {
       return const Left(ServerFailure.noInternetConnection());
@@ -28,10 +34,8 @@ class ProfileRepository extends IProfileRepository{
   Future<Either<CacheFailure, Profile>> getCachedProfileInfo() async {
     try {
       return Right(await _profileLocalDataSource.getCashedProfileInfo());
-    } on errors.CacheError{
+    } on errors.CacheError {
       return const Left(CacheFailure.noDataFound());
     }
   }
-
-
 }
