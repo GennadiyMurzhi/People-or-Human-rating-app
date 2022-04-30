@@ -41,8 +41,8 @@ class MainScreenCubit extends Cubit<MainScreenState> {
           context: layoutKey.currentContext!,
           builder: (context) => DialogCustom(
             titleDialog: 'Need access to contacts',
-            text:
-                'People Rating needs access to your contacts on your phone in order to know who is registered in the rating from your phonebook. Otherwise, it will download contacts that were known about before',
+            text: 'People Rating needs access to your contacts on your phone in order to know who is registered in the '
+                'rating from your phonebook. Otherwise, it will download contacts that were known about before',
             listActions: [
               ActionParams(
                 label: 'Grant',
@@ -124,8 +124,8 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     );
   }
 
-  void _contactsFromServer(Contacts contacts) async {
-    final contactsFromServer = await _contactsRepository.compareContactsFromTheServer(contacts);
+  void _contactsFromServer(PhoneContacts contacts) async {
+    final contactsFromServer = await _contactsRepository.updateContactsOnServer(contacts);
     contactsFromServer.fold(
       (serverFailure) => _runServerFailureMap(serverFailure, _contactsFromCache),
       (contactsFromServer) => emit(
@@ -174,7 +174,7 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   void _runNoPermission() async {
     _contactsFromServer(
-      Contacts.empty(),
+      PhoneContacts.empty(),
     );
     _runSnackBar(
       text: 'No permission for contacts',

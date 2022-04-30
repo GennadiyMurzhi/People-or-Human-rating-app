@@ -20,7 +20,7 @@ class DatabaseVendor implements IDatabaseVendor {
         await db.execute(
             'CREATE TABLE Profile(profile_id INTEGER PRIMARY KEY, user_name TEXT, photo_url TEXT, average_rating REAL,'
             'user_evaluations_count INTEGER)');
-        await db.execute('CREATE TABLE skill (skill_id INTEGER PRIMARY KEY AUTOINCREMENT, skill_name TEXT, '
+        await db.execute('CREATE TABLE Skill (skill_id INTEGER PRIMARY KEY AUTOINCREMENT, skill_name TEXT, '
             'skill_average_evaluations REAL)');
       });
     }

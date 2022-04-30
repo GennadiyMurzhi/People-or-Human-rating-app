@@ -1,25 +1,48 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'contacts.freezed.dart';
+
 part 'contacts.g.dart';
 
 @freezed
-class Contacts with _$Contacts {
-  const factory Contacts({
-      required List<Contact> contacts,
-  }) = _Contacts;
+class PhoneContacts with _$PhoneContacts {
+  const factory PhoneContacts({
+    required List<PhoneContact> contacts,
+  }) = _PhoneContacts;
 
-  factory Contacts.empty() => const Contacts(contacts: []);
-  factory Contacts.fromJson(Map<String, dynamic> json) => _$ContactsFromJson(json);
+  factory PhoneContacts.empty() => const PhoneContacts(contacts: []);
+
+  factory PhoneContacts.fromJson(Map<String, dynamic> json) => _$PhoneContactsFromJson(json);
 }
 
 @freezed
-class Contact with _$Contact{
-  const factory Contact({
+class PhoneContact with _$PhoneContact {
+  const factory PhoneContact({
     required String name,
     required List<String> phones,
-  }) = _Contact;
+  }) = _PhoneContact;
 
-  factory Contact.fromJson(Map<String, dynamic> json) => _$ContactFromJson(json);
+  factory PhoneContact.fromJson(Map<String, dynamic> json) => _$PhoneContactFromJson(json);
 }
 
+@freezed
+class UpdatedContacts with _$UpdatedContacts {
+  const factory UpdatedContacts({
+    required List<UpdatedContact> contacts,
+  }) = _UpdatedContacts;
+
+  factory UpdatedContacts.empty() => const UpdatedContacts(contacts: []);
+
+  factory UpdatedContacts.fromJson(Map<String, dynamic> json) => _$UpdatedContactsFromJson(json);
+}
+
+@freezed
+class UpdatedContact with _$UpdatedContact {
+  const factory UpdatedContact({
+    required String name,
+    required List<String> phones,
+    required bool isServerUser,
+  }) = _UpdatedContact;
+
+  factory UpdatedContact.fromJson(Map<String, dynamic> json) => _$UpdatedContactFromJson(json);
+}

@@ -15,10 +15,14 @@ class ContactsRepository implements IContactsRepository {
   final IContactsRemoteDataSource _contactsRemoteDataSource;
   final IContactsLocalDataSource _contactsLocalDataSource;
 
-  ContactsRepository(this._contactsVendor, this._contactsRemoteDataSource, this._contactsLocalDataSource);
+  ContactsRepository(
+    this._contactsVendor,
+    this._contactsRemoteDataSource,
+    this._contactsLocalDataSource,
+  );
 
   @override
-  Future<Either<ContactsFailure, Contacts>> getContactsFromPhone() async {
+  Future<Either<ContactsFailure, PhoneContacts>> getContactsFromPhone() async {
     await _contactsVendor.request();
 
     if (await _contactsVendor.isGranted) {
@@ -30,28 +34,14 @@ class ContactsRepository implements IContactsRepository {
     }
   }
 
-  ///Keys are contactsOfRegisteredUsers and contactsUnRegisteredUsers
   @override
-  Future<Either<ServerFailure, Map<String, Contacts>>> compareContactsFromTheServer(Contacts contactsFromPhone) async {
+  Future<Either<ServerFailure, UpdatedContacts>> updateContactsOnServer(PhoneContacts contactsFromPhone) async {
     try {
-      final contactsOfRegisteredUsers = await _contactsRemoteDataSource.getContactsOfRegisteredUsers(contactsFromPhone);
+      final updatedContacts = await _contactsRemoteDataSource.updateContactsOnServer(contactsFromPhone);
 
-      final contactsOfUnregisteredUsers = Contacts(
-        contacts: List<Contact>.empty(growable: true),
-      );
+      await _contactsLocalDataSource.cacheContacts(updatedContacts);
 
-      for (int i = 0; i <= contactsFromPhone.contacts.length - 1; i++) {
-        if (!contactsFromPhone.contacts.contains(contactsOfRegisteredUsers.contacts[i])) {
-          contactsOfUnregisteredUsers.contacts.add(contactsFromPhone.contacts[i]);
-        }
-      }
-
-      _contactsLocalDataSource.cacheContacts(contactsOfRegisteredUsers, contactsOfUnregisteredUsers);
-
-      return Right({
-        'contactsOfRegisteredUsers': contactsOfRegisteredUsers,
-        'contactsUnRegisteredUsers': contactsOfUnregisteredUsers,
-      });
+      return Right(updatedContacts);
     } on errors.ServerError catch (e) {
       return Left(ServerFailure.serverError(statusCode: e.statusCode));
     } on errors.NoInternetConnectionError {
@@ -60,7 +50,7 @@ class ContactsRepository implements IContactsRepository {
   }
 
   @override
-  Future<Either<CacheFailure, Map<String, Contacts>>> getCashedContacts() async {
+  Future<Either<CacheFailure, UpdatedContacts>> getCashedContacts() async {
     try {
       return Right(await _contactsLocalDataSource.getCashedContacts());
     } on errors.CacheError {

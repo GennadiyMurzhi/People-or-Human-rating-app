@@ -40,21 +40,13 @@ class ContactsPage extends StatelessWidget {
                       Center(
                         child: Wrap(
                           children: List.generate(
-                                contacts['contactsOfRegisteredUsers']!.contacts.length,
-                                (index) => ContactWidget(
-                                  name: contacts['contactsOfRegisteredUsers']!.contacts[index].name,
-                                  ratedYouCount: 0,
-                                  ratedItCount: 0,
-                                ),
-                              ) +
-                              List.generate(
-                                contacts['contactsUnRegisteredUsers']!.contacts.length,
-                                (index) => ContactWidget(
-                                  name: contacts['contactsUnRegisteredUsers']!.contacts[index].name,
-                                  ratedYouCount: 0,
-                                  ratedItCount: 0,
-                                ),
-                              ),
+                            contacts.contacts.length,
+                            (index) => ContactWidget(
+                              name: contacts.contacts[index].name,
+                              ratedYouCount: 0,
+                              ratedItCount: 0,
+                            ),
+                          ),
                         ),
                       ),
                     ],

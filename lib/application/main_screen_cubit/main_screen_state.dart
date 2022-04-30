@@ -7,7 +7,7 @@ abstract class MainScreenState with _$MainScreenState {
     required bool drawerOrArrowBack,
     required int currentPageIndex,
     //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
-    Map<String, Contacts>? contacts,
+    UpdatedContacts? contacts,
     Profile? profile,
     required bool isCacheError,
   }) = _MainSreenState;

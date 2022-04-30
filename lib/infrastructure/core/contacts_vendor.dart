@@ -7,7 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 @Injectable(as: IContactsVendor)
 class ContactsVendor implements IContactsVendor {
   @override
-  Future<Contacts> getContacts() async {
+  Future<PhoneContacts> getContacts() async {
     final contacts = await contacts_service.ContactsService.getContacts(
       withThumbnails: false,
       photoHighResolution: false,
@@ -16,10 +16,10 @@ class ContactsVendor implements IContactsVendor {
       iOSLocalizedLabels: false,
     );
 
-    return Contacts(
+    return PhoneContacts(
       contacts: List.generate(
         contacts.length,
-        (index) => Contact(
+        (index) => PhoneContact(
           name: contacts[index].displayName!,
           phones: List.generate(
             contacts[index].phones!.length,

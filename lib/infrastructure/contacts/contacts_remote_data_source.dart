@@ -13,7 +13,7 @@ class ContactsRemoteDataSource implements IContactsRemoteDataSource {
   ContactsRemoteDataSource(this._dio, this._networkInfo);
 
   @override
-  Future<Contacts> getContactsOfRegisteredUsers(Contacts contactsFromPhone) async {
+  Future<UpdatedContacts> updateContactsOnServer(PhoneContacts contactsFromPhone) async {
     if (await _networkInfo.isConnected) {
       final Response response;
 
@@ -24,7 +24,7 @@ class ContactsRemoteDataSource implements IContactsRemoteDataSource {
       }
 
       if (response.statusCode == 200) {
-        return Contacts.fromJson(response.data);
+        return UpdatedContacts.fromJson(response.data);
       } else {
         throw ServerError(statusCode: response.statusCode!);
       }
