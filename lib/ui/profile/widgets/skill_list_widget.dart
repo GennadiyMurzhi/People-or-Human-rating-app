@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:people_rating_app/domain/profile/profile.dart';
 import 'package:people_rating_app/ui/core/widgets/stars_widget.dart';
 
-class SkillsListWidget extends StatelessWidget {
+class SkillListWidget extends StatelessWidget {
   final List<Skill> skills;
 
-  const SkillsListWidget({
+  const SkillListWidget({
     Key? key,
     required this.skills,
   }) : super(key: key);
@@ -40,7 +40,7 @@ class SkillsListWidget extends StatelessWidget {
                 ),
                 StarsWidget(
                   color: Theme.of(context).colorScheme.tertiary,
-                  fillStarsIndex: skills[index].skillAverageEvaluations,
+                  fillStarsIndex: skills[index].skillEvaluation,
                   size: const Size(115, 14.25),
                 ),
               ],

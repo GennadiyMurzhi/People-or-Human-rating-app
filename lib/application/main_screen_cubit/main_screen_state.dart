@@ -6,10 +6,12 @@ abstract class MainScreenState with _$MainScreenState {
     required String title,
     required bool drawerOrArrowBack,
     required int currentPageIndex,
-    //Keys must be of contactsOfRegisteredUsers and contactsUnRegisteredUsers
     UpdatedContacts? contacts,
     Profile? profile,
     required bool isCacheError,
+    required bool isEvaluationsListExpanded,
+    required bool isEvaluationsListDragTime,
+    double? heightEvaluationsListDrag,
   }) = _MainSreenState;
 
   factory MainScreenState.initialMainScreen() => const MainScreenState(
@@ -17,5 +19,7 @@ abstract class MainScreenState with _$MainScreenState {
         drawerOrArrowBack: true,
         currentPageIndex: 1,
         isCacheError: false,
+        isEvaluationsListExpanded: false,
+        isEvaluationsListDragTime: false,
       );
 }

@@ -4,6 +4,7 @@ import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubi
 import 'package:people_rating_app/injection.dart';
 import 'package:people_rating_app/ui/contacts/contacts_page.dart';
 import 'package:people_rating_app/ui/core/layout.dart';
+import 'package:people_rating_app/ui/evaluation/evaluation_page.dart';
 import 'package:people_rating_app/ui/profile/profile_page.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -25,11 +26,7 @@ class MainScreen extends StatelessWidget {
             children: <Widget>[
               ContactsPage(),
               ProfilePage(),
-              Text(
-                '\n\n\n\n\n\n\nThe page of evaluations will be',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+              EvaluationPage(),
             ],
           ),
         ),

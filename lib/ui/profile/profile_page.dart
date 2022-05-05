@@ -4,7 +4,7 @@ import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubi
 import 'package:people_rating_app/ui/core/body_if_no_cache_error.dart';
 import 'package:people_rating_app/ui/core/widgets/loading_widget.dart';
 import 'package:people_rating_app/ui/profile/widgets/average_rating_widget.dart';
-import 'package:people_rating_app/ui/profile/widgets/skills_list_widget.dart';
+import 'package:people_rating_app/ui/profile/widgets/skill_list_widget.dart';
 import 'package:people_rating_app/ui/profile/widgets/profile_photo_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -67,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                       onPressed: () => BlocProvider.of<MainScreenCubit>(context).onTapToBottomBar(2),
                     ),
                   ),
-                  SkillsListWidget(
+                  SkillListWidget(
                     skills: profile.skills.skills,
                   ),
                 ],

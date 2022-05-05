@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:people_rating_app/domain/contacts/contacts.dart';
 import 'package:people_rating_app/domain/contacts/i_contacts_local_data_source.dart';
-import 'package:people_rating_app/domain/core/errors.dart';
 import 'package:people_rating_app/domain/core/i_database_vendor.dart';
 import 'package:people_rating_app/infrastructure/core/local_data_source_error_handler_mixin.dart';
 import 'package:sqflite/sqflite.dart';

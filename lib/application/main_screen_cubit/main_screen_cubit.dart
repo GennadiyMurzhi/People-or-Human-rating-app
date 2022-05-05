@@ -25,6 +25,8 @@ class MainScreenCubit extends Cubit<MainScreenState> {
 
   final _fakeUser = const User(phoneNumberId: '+38099221111');
 
+  bool _isDragToExpand = false;
+
   MainScreenCubit(
     this._mainScreenPageController,
     this._contactsRepository,
@@ -98,6 +100,70 @@ class MainScreenCubit extends Cubit<MainScreenState> {
     );
   }
 
+  void onVerticalDragUpdateCubit(DragUpdateDetails dragDetails, double expandedHeight, double unExpandedHeight) {
+    if (state.heightEvaluationsListDrag == null) {
+      emit(
+        state.copyWith(heightEvaluationsListDrag: unExpandedHeight),
+      );
+    }
+
+    if (dragDetails.delta.direction < 0) {
+      _isDragToExpand = true;
+      if ((state.heightEvaluationsListDrag! + dragDetails.delta.distance) > expandedHeight) {
+        emit(
+          state.copyWith(
+            heightEvaluationsListDrag: expandedHeight,
+            isEvaluationsListDragTime: true,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            heightEvaluationsListDrag: state.heightEvaluationsListDrag! + dragDetails.delta.distance,
+            isEvaluationsListDragTime: true,
+          ),
+        );
+      }
+    }
+
+    if (dragDetails.delta.direction > 0) {
+      _isDragToExpand = false;
+      if ((state.heightEvaluationsListDrag! + dragDetails.delta.distance) < unExpandedHeight) {
+        emit(
+          state.copyWith(
+            heightEvaluationsListDrag: unExpandedHeight,
+            isEvaluationsListDragTime: true,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            heightEvaluationsListDrag: state.heightEvaluationsListDrag! - dragDetails.delta.distance,
+            isEvaluationsListDragTime: true,
+          ),
+        );
+      }
+    }
+  }
+
+  void onVerticalDragEndCubit(DragEndDetails dragDetails) {
+    if (_isDragToExpand) {
+      emit(
+        state.copyWith(
+          isEvaluationsListExpanded: true,
+          isEvaluationsListDragTime: false,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          isEvaluationsListExpanded: false,
+          isEvaluationsListDragTime: false,
+        ),
+      );
+    }
+  }
+
   void _updateProfileEmit(Profile profile) {
     emit(
       state.copyWith(
@@ -108,12 +174,26 @@ class MainScreenCubit extends Cubit<MainScreenState> {
   }
 
   void _firstEmitOnScroll(int pageIndexSelected) {
-    emit(
-      state.copyWith(
-        currentPageIndex: pageIndexSelected,
-        isCacheError: false,
-      ),
-    );
+    if (pageIndexSelected == 2) {
+      emit(
+        state.copyWith(
+          currentPageIndex: 2,
+          isCacheError: false,
+          isEvaluationsListExpanded: false,
+          isEvaluationsListDragTime: false,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          currentPageIndex: pageIndexSelected,
+          isCacheError: false,
+          isEvaluationsListExpanded: false,
+          isEvaluationsListDragTime: false,
+          heightEvaluationsListDrag: null,
+        ),
+      );
+    }
   }
 
   void _contactsFromPhone() async {

@@ -19,7 +19,7 @@ class ProfileLocalDataSource with LocalDataSourceErrorHandlerMixin<Profile> impl
 
     for (int i = 0; i <= profile.skills.skills.length; i++) {
       await _databaseVendor.database!.execute('INSERT INTO skill(skill_name, skill_average_evaluations)'
-          'VALUES(${profile.skills.skills[i].skillName},${profile.skills.skills[i].skillAverageEvaluations})');
+          'VALUES(${profile.skills.skills[i].skillName},${profile.skills.skills[i].skillEvaluation})');
     }
   }
 
@@ -46,7 +46,7 @@ class ProfileLocalDataSource with LocalDataSourceErrorHandlerMixin<Profile> impl
               profileInfoMap.length,
               (index) => Skill(
                 skillName: profileInfoMap[index]['skill_name'] as String,
-                skillAverageEvaluations: profileInfoMap[index]['skill_average_evaluations'] as double,
+                skillEvaluation: profileInfoMap[index]['skill_average_evaluations'] as double,
               ),
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:people_rating_app/application/main_screen_cubit/main_screen_cubi
 import 'package:people_rating_app/ui/contacts/contact_widget.dart';
 import 'package:people_rating_app/ui/core/body_if_no_cache_error.dart';
 import 'package:people_rating_app/ui/core/widgets/loading_widget.dart';
+import 'package:people_rating_app/ui/core/widgets/page_headline_widget.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({Key? key}) : super(key: key);
@@ -15,16 +16,8 @@ class ContactsPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          width: double.infinity,
-          color: Theme.of(context).colorScheme.primary,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
-            child: Text(
-              'Contacts',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ),
+        const PageHeadlineWidget(
+          headline: 'Contacts',
         ),
         BodyIfNoCacheError(
           body: Expanded(
